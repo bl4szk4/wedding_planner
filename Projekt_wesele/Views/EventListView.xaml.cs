@@ -18,7 +18,7 @@ namespace Projekt_wesele.Views
     /// <summary>
     /// Logika interakcji dla klasy EventListView.xaml
     /// </summary>
-    public partial class EventListView : Window
+    public partial class EventListView : UserControl
     {
         public EventListView()
         {

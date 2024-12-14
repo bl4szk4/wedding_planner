@@ -18,7 +18,7 @@ namespace Projekt_wesele.Views
     /// <summary>
     /// Logika interakcji dla klasy GuestsListView.xaml
     /// </summary>
-    public partial class GuestsListView : Window
+    public partial class GuestsListView : UserControl
     {
         public GuestsListView()
         {

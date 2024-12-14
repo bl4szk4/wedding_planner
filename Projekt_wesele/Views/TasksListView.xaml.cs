@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Projekt_wesele.ViewModels;
 
@@ -19,7 +18,7 @@ namespace Projekt_wesele.Views
     /// <summary>
     /// Logika interakcji dla klasy TasksListView.xaml
     /// </summary>
-    public partial class TasksListView : Page
+    public partial class TasksListView : UserControl
     {
         public TasksListView()
         {

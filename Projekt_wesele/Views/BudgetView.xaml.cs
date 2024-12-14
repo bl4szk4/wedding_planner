@@ -18,12 +18,12 @@ namespace Projekt_wesele.Views
     /// <summary>
     /// Logika interakcji dla klasy BudgetView.xaml
     /// </summary>
-    public partial class BudgetView : Window
+    public partial class BudgetView : UserControl
     {
         public BudgetView()
         {
             InitializeComponent();
             DataContext = new BudgetViewModel();
         }
-    }
+    }   
 }
