@@ -12,5 +12,7 @@ namespace Projekt_wesele.Models
         public string Name { get; set; }
         public bool Attending { get; set; }
         public string? Notes { get; set; }
+        public bool IsKid { get; set; } = false;
+        public bool HasPartner { get; set; } = false;
     }
 }

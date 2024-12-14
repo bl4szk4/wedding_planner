@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projekt_wesele.Models
 {
-    public class Task
+    public class TaskItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Projekt_wesele.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- Przycisk Budget -->
+            <Button Content="Budget" Command="{Binding ShowBudgetCommand}" Width="150" Height="150" Margin="20" />
+
+            <!-- Przycisk Guests -->
+            <Button Content="Guests" Command="{Binding ShowGuestsCommand}" Width="150" Height="150" Margin="20" />
+
+            <!-- Przycisk Tasks -->
+            <Button Content="Tasks" Command="{Binding ShowTasksCommand}" Width="150" Height="150" Margin="20" />
+
+            <!-- Przycisk Events -->
+            <Button Content="Events" Command="{Binding ShowEventsCommand}" Width="150" Height="150" Margin="20" />
+        </StackPanel>
+    </Grid>
+</UserControl>
