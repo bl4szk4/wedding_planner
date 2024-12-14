@@ -1,19 +1,142 @@
 ﻿<UserControl x:Class="Projekt_wesele.Views.HomeView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
+    <Grid Background="#1E1E1E">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <!-- Przycisk Budget -->
-            <Button Content="Budget" Command="{Binding ShowBudgetCommand}" Width="150" Height="150" Margin="20" />
+            <Button Command="{Binding ShowBudgetCommand}" Width="150" Height="150" Margin="20">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <!-- Ikona (okrąg) -->
+                                        <Ellipse Fill="#4FC3F7" Width="80" Height="80" Margin="0,10,0,5">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.5" />
+                                            </Ellipse.Effect>
+                                        </Ellipse>
+                                        <!-- Tekst -->
+                                        <TextBlock Text="Budget" Foreground="White" FontSize="16" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,90,0,0" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <!-- Efekt hover -->
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="75" CenterY="75" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#0288D1" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
             <!-- Przycisk Guests -->
-            <Button Content="Guests" Command="{Binding ShowGuestsCommand}" Width="150" Height="150" Margin="20" />
+            <Button Command="{Binding ShowGuestsCommand}" Width="150" Height="150" Margin="20">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Fill="#FF7043" Width="80" Height="80" Margin="0,10,0,5">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.5" />
+                                            </Ellipse.Effect>
+                                        </Ellipse>
+                                        <TextBlock Text="Guests" Foreground="White" FontSize="16" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,90,0,0" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <!-- Efekt hover -->
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="75" CenterY="75" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#D84315" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
-            <!-- Przycisk Tasks -->
-            <Button Content="Tasks" Command="{Binding ShowTasksCommand}" Width="150" Height="150" Margin="20" />
+            <!-- Analogiczne efekty dla Tasks i Events -->
+            <Button Command="{Binding ShowTasksCommand}" Width="150" Height="150" Margin="20">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Fill="#66BB6A" Width="80" Height="80" Margin="0,10,0,5">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.5" />
+                                            </Ellipse.Effect>
+                                        </Ellipse>
+                                        <TextBlock Text="Tasks" Foreground="White" FontSize="16" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,90,0,0" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="75" CenterY="75" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#388E3C" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
-            <!-- Przycisk Events -->
-            <Button Content="Events" Command="{Binding ShowEventsCommand}" Width="150" Height="150" Margin="20" />
+            <Button Command="{Binding ShowEventsCommand}" Width="150" Height="150" Margin="20">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Ellipse Fill="#AB47BC" Width="80" Height="80" Margin="0,10,0,5">
+                                            <Ellipse.Effect>
+                                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="0" Opacity="0.5" />
+                                            </Ellipse.Effect>
+                                        </Ellipse>
+                                        <TextBlock Text="Events" Foreground="White" FontSize="16" FontWeight="Bold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,90,0,0" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.1" ScaleY="1.1" CenterX="75" CenterY="75" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Background" Value="#7B1FA2" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
