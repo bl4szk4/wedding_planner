@@ -1,29 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
 using Projekt_wesele.ViewModels;
+using Projekt_wesele.Models;
 
 namespace Projekt_wesele.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy GuestsListView.xaml
-    /// </summary>
     public partial class GuestsListView : UserControl
     {
+        private readonly GuestsListViewModel _viewModel;
+
         public GuestsListView()
         {
             InitializeComponent();
-            DataContext = new GuestsListViewModel();
+            _viewModel = new GuestsListViewModel();
+            DataContext = _viewModel;
+        }
+
+        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            if (e.Row.Item is Guest editedGuest)
+            {
+                _viewModel.SaveGuestChanges(editedGuest);
+            }
+        }
+
+        private void DataGrid_CurrentCellChanged(object sender, System.EventArgs e)
+        {
+            if (sender is DataGrid dataGrid)
+            {
+                if (dataGrid.SelectedItem is Guest modifiedGuest)
+                {
+                    _viewModel.SaveGuestChanges(modifiedGuest);
+                }
+            }
         }
     }
 }

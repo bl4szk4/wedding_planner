@@ -6,14 +6,14 @@
         Background="#1E1E1E">
 
     <Grid>
-        <!-- Przycisk Home w prawym górnym rogu -->
+        <!-- Dynamicznie przełączany widok -->
+        <ContentControl Content="{Binding CurrentView}" Grid.Row="0" />
+
+        <!-- Przycisk Home po lewej stronie -->
         <Button Content="Home" Command="{Binding ShowHomeCommand}" 
-                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"
                 Visibility="{Binding IsHomeVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                 Background="#0288D1" Foreground="White" FontWeight="Bold"
-                Padding="5" BorderBrush="{x:Null}" />
-
-        <!-- Dynamicznie przełączany widok -->
-        <ContentControl Content="{Binding CurrentView}" />
+                Padding="5" BorderBrush="{x:Null}" Panel.ZIndex="1" />
     </Grid>
 </Window>

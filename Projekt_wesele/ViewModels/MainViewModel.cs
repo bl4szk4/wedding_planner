@@ -14,7 +14,6 @@ namespace Projekt_wesele.ViewModels
         public ICommand ShowTasksCommand { get; }
         public ICommand ShowEventsCommand { get; }
 
-        // Aktualnie wyświetlany widok
         private object _currentView;
         public object CurrentView
         {
@@ -27,7 +26,6 @@ namespace Projekt_wesele.ViewModels
         }
 
 
-        // Kontrola widoczności przycisku "Home"
         private bool _isHomeVisible;
         public bool IsHomeVisible
         {
@@ -40,49 +38,41 @@ namespace Projekt_wesele.ViewModels
         }
 
 
-        // Konstruktor
         public MainViewModel()
         {
-            // Inicjalizacja komend
             ShowHomeCommand = new RelayCommand(ShowHome);
             ShowBudgetCommand = new RelayCommand(ShowBudget);
             ShowGuestsCommand = new RelayCommand(ShowGuests);
             ShowTasksCommand = new RelayCommand(ShowTasks);
             ShowEventsCommand = new RelayCommand(ShowEvents);
 
-            // Domyślnie wyświetlany jest widok główny
             ShowHome();
         }
 
-        // Przełączenie na widok główny (HomeView)
         private void ShowHome()
         {
-            CurrentView = new HomeView(this); // Widok główny z przyciskami
-            IsHomeVisible = false; // Ukryj przycisk Home na ekranie głównym
+            CurrentView = new HomeView(this);
+            IsHomeVisible = false;
         }
 
-        // Przełączenie na widok Budżetu
         private void ShowBudget()
         {
             CurrentView = new BudgetView();
-            IsHomeVisible = true; // Pokaż przycisk Home
+            IsHomeVisible = true;
         }
 
-        // Przełączenie na widok Gości
         private void ShowGuests()
         {
             CurrentView = new GuestsListView();
             IsHomeVisible = true;
         }
 
-        // Przełączenie na widok Zadań
         private void ShowTasks()
         {
             CurrentView = new TasksListView();
             IsHomeVisible = true;
         }
 
-        // Przełączenie na widok Wydarzeń
         private void ShowEvents()
         {
             CurrentView = new EventListView();

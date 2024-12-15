@@ -1,0 +1,30 @@
+﻿<Window x:Class="Projekt_wesele.Views.AddGuestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dodaj/Edytuj Gościa" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Imię:" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,10,0" />
+        <TextBox Text="{Binding Guest.Name}" Grid.Row="0" Grid.Column="1" />
+
+        <CheckBox Content="Attending" IsChecked="{Binding Guest.Attending}" Grid.Row="1" />
+        <CheckBox Content="Is Kid" IsChecked="{Binding Guest.IsKid}" Grid.Row="2" />
+        <CheckBox Content="Has Partner" IsChecked="{Binding Guest.HasPartner}" Grid.Row="3" />
+
+        <TextBlock Text="Uwagi:" Grid.Row="4" VerticalAlignment="Center" Margin="0,0,10,0" />
+        <TextBox Text="{Binding Guest.Notes}" Grid.Row="4" Grid.Column="1" />
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="5" Margin="0,10,0,0">
+            <Button Content="OK" Command="{Binding SaveCommand}" Margin="5" />
+            <Button Content="Anuluj" Command="{Binding CancelCommand}" Margin="5" />
+        </StackPanel>
+    </Grid>
+</Window>

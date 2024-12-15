@@ -18,6 +18,14 @@ namespace Projekt_wesele.Data
             optionsBuilder.UseSqlite(@"Data Source=D:\Studia\Informatyka\C#\Projekt_wesele\Projekt_wesele\Projekt_wesele\weddingPlanner.db")
                           .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Guest>()
+                .Property(g => g.Side)
+                .HasConversion<int>();
+        }
 
 
     }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projekt_wesele.Data;
 
@@ -10,9 +11,11 @@ using Projekt_wesele.Data;
 namespace Projekt_wesele.Migrations
 {
     [DbContext(typeof(WeddingPlannerContext))]
-    partial class WeddingPlannerContextModelSnapshot : ModelSnapshot
+    [Migration("20241215111041_GuestsSide")]
+    partial class GuestsSide
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");

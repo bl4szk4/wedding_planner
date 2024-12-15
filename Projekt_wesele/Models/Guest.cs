@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projekt_wesele.Models
 {
@@ -14,5 +10,14 @@ namespace Projekt_wesele.Models
         public string? Notes { get; set; }
         public bool IsKid { get; set; } = false;
         public bool HasPartner { get; set; } = false;
+
+        public GuestSide Side { get; set; } = GuestSide.None;
+    }
+
+    public enum GuestSide
+    {
+        None = 0,
+        Bride = 1, 
+        Groom = 2
     }
 }

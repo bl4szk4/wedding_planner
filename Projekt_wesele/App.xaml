@@ -1,8 +1,15 @@
 ﻿<Application x:Class="Projekt_wesele.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:helpers="clr-namespace:Projekt_wesele.Helpers"
+             xmlns:models="clr-namespace:Projekt_wesele.Models"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!-- Konwerter widoczności -->
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <!-- Konwerter dla checkmarków -->
+        <helpers:BoolToCheckmarkConverter x:Key="BoolToCheckmarkConverter" />
+        <helpers:SideToColorConverter x:Key="SideToColorConverter" />
     </Application.Resources>
 </Application>
