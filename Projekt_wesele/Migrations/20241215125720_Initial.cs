@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Projekt_wesele.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -43,18 +43,21 @@ namespace Projekt_wesele.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guests",
+                name: "Guest",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Attending = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Notes = table.Column<string>(type: "TEXT", nullable: true)
+                    Notes = table.Column<string>(type: "TEXT", nullable: true),
+                    IsKid = table.Column<bool>(type: "INTEGER", nullable: false),
+                    HasPartner = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Side = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Guests", x => x.Id);
+                    table.PrimaryKey("PK_Guest", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,7 +86,7 @@ namespace Projekt_wesele.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Guests");
+                name: "Guest");
 
             migrationBuilder.DropTable(
                 name: "Tasks");

@@ -9,15 +9,20 @@ namespace Projekt_wesele.Views
         public AddGuestWindow(Guest guest = null)
         {
             InitializeComponent();
-            var viewModel = new AddGuestViewModel(guest);
+
+            var viewModel = new AddGuestViewModel(guest ?? new Guest());
             DataContext = viewModel;
 
-            // Obsługa zamknięcia okna z ViewModel
             viewModel.RequestClose += (s, e) =>
             {
                 DialogResult = viewModel.DialogResult;
                 Close();
             };
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

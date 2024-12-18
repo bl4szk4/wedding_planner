@@ -1,98 +1,160 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Projekt_wesele.Data;
 using Projekt_wesele.Helpers;
 using Projekt_wesele.Models;
+using Projekt_wesele.ViewModels;
 using Projekt_wesele.Views;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
-namespace Projekt_wesele.ViewModels
+public class GuestsListViewModel : ViewModelBase
 {
-    public class GuestsListViewModel : ViewModelBase
+    private readonly WeddingPlannerContext _context;
+
+    public ObservableCollection<Guest> Guests { get; set; }
+    private List<Guest> _allGuests;
+
+    // Filtry
+    public bool? FilterIsKid { get; set; }
+    public bool? FilterHasPartner { get; set; }
+    public GuestSide? FilterSide { get; set; }
+    public ObservableCollection<GuestSide?> AvailableSides { get; set; }
+
+    public ICommand ApplyFiltersCommand { get; }
+    public ICommand ClearFiltersCommand { get; }
+    public ICommand AddGuestCommand { get; }
+    public ICommand DeleteGuestCommand { get; }
+
+    public GuestsListViewModel()
     {
-        private readonly WeddingPlannerContext _context;
+        _context = new WeddingPlannerContext();
+        LoadGuests();
 
-        public ObservableCollection<Guest> Guests { get; set; }
+        AvailableSides = new ObservableCollection<GuestSide?> { null, GuestSide.Bride, GuestSide.Groom };
+        ApplyFiltersCommand = new RelayCommand(ApplyFilters);
+        ClearFiltersCommand = new RelayCommand(ClearFilters);
+        AddGuestCommand = new RelayCommand(AddGuest);
+        DeleteGuestCommand = new RelayCommand<Guest>(DeleteGuest);
+    }
 
-        public ICommand AddGuestCommand { get; }
-        public ICommand DeleteGuestCommand { get; }
-        public ICommand EditGuestCommand { get; }
+    private void LoadGuests()
+    {
+        var guestsFromDb = _context.Guests.ToList();
 
-        public GuestsListViewModel()
+        Guests = new ObservableCollection<Guest>(guestsFromDb);
+
+        foreach (var guest in Guests)
         {
-            _context = new WeddingPlannerContext();
-
-            Guests = new ObservableCollection<Guest>(_context.Guests.ToList());
-
-            AddGuestCommand = new RelayCommand(AddGuest);
-            DeleteGuestCommand = new RelayCommand<Guest>(DeleteGuest);
-            EditGuestCommand = new RelayCommand<Guest>(EditGuest);
+            guest.PropertyChanged += Guest_PropertyChanged;
         }
 
-        private void AddGuest()
+        Guests.CollectionChanged += Guests_CollectionChanged;
+
+        OnPropertyChanged(nameof(Guests));
+    }
+
+
+
+    private void Guests_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action == NotifyCollectionChangedAction.Add)
         {
-            var addGuestWindow = new AddGuestWindow();
-            if (addGuestWindow.ShowDialog() == true)
+            foreach (var newGuest in e.NewItems.Cast<Guest>())
             {
-                var viewModel = addGuestWindow.DataContext as AddGuestViewModel;
-                if (viewModel != null)
+                if (_context.Entry(newGuest).State == EntityState.Detached)
                 {
-                    var newGuest = viewModel.Guest;
                     _context.Guests.Add(newGuest);
-                    _context.SaveChanges();
-                    Guests.Add(newGuest);
                 }
+                newGuest.PropertyChanged += Guest_PropertyChanged;
             }
         }
-
-        private void DeleteGuest(Guest guest)
+        else if (e.Action == NotifyCollectionChangedAction.Remove)
         {
-            if (guest != null)
+            foreach (var removedGuest in e.OldItems.Cast<Guest>())
             {
-                MessageBoxResult result = MessageBox.Show($"Czy na pewno chcesz usunąć gościa {guest.Name}?",
-                    "Potwierdzenie", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    _context.Guests.Remove(guest);
-                    _context.SaveChanges();
-                    Guests.Remove(guest);
-                }
+                _context.Guests.Remove(removedGuest);
+                removedGuest.PropertyChanged -= Guest_PropertyChanged;
             }
         }
+    }
 
-        private void EditGuest(Guest guest)
+
+    private async void Guest_PropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (sender is Guest updatedGuest)
         {
-            if (guest != null)
-            {
-                var editGuestWindow = new AddGuestWindow(guest);
-                if (editGuestWindow.ShowDialog() == true)
-                {
-                    var viewModel = editGuestWindow.DataContext as AddGuestViewModel;
-                    if (viewModel != null)
-                    {
-                        guest.Name = viewModel.Guest.Name;
-                        guest.Attending = viewModel.Guest.Attending;
-                        guest.Notes = viewModel.Guest.Notes;
-                        guest.IsKid = viewModel.Guest.IsKid;
-                        guest.HasPartner = viewModel.Guest.HasPartner;
+            var entry = _context.Entry(updatedGuest);
 
-                        _context.Guests.Update(guest);
-                        _context.SaveChanges();
-                    }
-                }
+            if (entry.State == EntityState.Unchanged)
+            {
+                entry.State = EntityState.Modified;
             }
-        }
 
-        public void SaveGuestChanges(Guest guest)
+            await Task.Delay(300);
+            _context.SaveChanges();
+        }
+    }
+
+
+    private void ApplyFilters()
+    {
+        var filteredGuests = _context.Guests
+            .Where(g =>
+                (!FilterIsKid.HasValue || g.IsKid == FilterIsKid.Value) &&
+                (!FilterHasPartner.HasValue || g.HasPartner == FilterHasPartner.Value) &&
+                (!FilterSide.HasValue || g.Side == FilterSide.Value))
+            .ToList();
+
+        Guests.Clear();
+        foreach (var guest in filteredGuests)
         {
-            if (guest != null)
+            Guests.Add(guest);
+        }
+    }
+
+
+
+
+    private void ClearFilters()
+    {
+        FilterIsKid = null;
+        FilterHasPartner = null;
+        FilterSide = null;
+
+        OnPropertyChanged(nameof(FilterIsKid));
+        OnPropertyChanged(nameof(FilterHasPartner));
+        OnPropertyChanged(nameof(FilterSide));
+
+        ApplyFilters();
+    }
+
+    private void AddGuest()
+    {
+        var addGuestWindow = new AddGuestWindow();
+        if (addGuestWindow.ShowDialog() == true)
+        {
+            var viewModel = addGuestWindow.DataContext as AddGuestViewModel;
+            if (viewModel?.Guest != null)
             {
-                _context.Guests.Update(guest);
+                Guests.Add(viewModel.Guest);
+                _context.Guests.Add(viewModel.Guest);
                 _context.SaveChanges();
             }
         }
     }
+
+    private void DeleteGuest(Guest guest)
+    {
+        if (guest != null)
+        {
+            Guests.Remove(guest);
+            _context.Guests.Remove(guest);
+            _context.SaveChanges();
+        }
+    }
+
 }

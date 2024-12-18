@@ -11,8 +11,8 @@ using Projekt_wesele.Data;
 namespace Projekt_wesele.Migrations
 {
     [DbContext(typeof(WeddingPlannerContext))]
-    [Migration("20241215111041_GuestsSide")]
-    partial class GuestsSide
+    [Migration("20241215130441_Initial2")]
+    partial class Initial2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

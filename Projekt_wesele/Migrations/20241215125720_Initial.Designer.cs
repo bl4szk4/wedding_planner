@@ -11,8 +11,8 @@ using Projekt_wesele.Data;
 namespace Projekt_wesele.Migrations
 {
     [DbContext(typeof(WeddingPlannerContext))]
-    [Migration("20241214201815_ExtraFields")]
-    partial class ExtraFields
+    [Migration("20241215125720_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,9 +89,12 @@ namespace Projekt_wesele.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Side")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Guests");
+                    b.ToTable("Guest");
                 });
 
             modelBuilder.Entity("Projekt_wesele.Models.TaskItem", b =>

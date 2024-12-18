@@ -15,23 +15,5 @@ namespace Projekt_wesele.Views
             DataContext = _viewModel;
         }
 
-        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            if (e.Row.Item is Guest editedGuest)
-            {
-                _viewModel.SaveGuestChanges(editedGuest);
-            }
-        }
-
-        private void DataGrid_CurrentCellChanged(object sender, System.EventArgs e)
-        {
-            if (sender is DataGrid dataGrid)
-            {
-                if (dataGrid.SelectedItem is Guest modifiedGuest)
-                {
-                    _viewModel.SaveGuestChanges(modifiedGuest);
-                }
-            }
-        }
     }
 }
