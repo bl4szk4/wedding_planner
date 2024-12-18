@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using Projekt_wesele.Helpers;
 
-
 namespace Projekt_wesele.ViewModels
 {
     public class MainViewModel : ViewModelBase
@@ -13,6 +12,7 @@ namespace Projekt_wesele.ViewModels
         public ICommand ShowGuestsCommand { get; }
         public ICommand ShowTasksCommand { get; }
         public ICommand ShowEventsCommand { get; }
+        public ICommand ToggleNavCommand { get; } // Komenda do ukrywania/rozwijania nawigacji
 
         private object _currentView;
         public object CurrentView
@@ -25,18 +25,16 @@ namespace Projekt_wesele.ViewModels
             }
         }
 
-
-        private bool _isHomeVisible;
-        public bool IsHomeVisible
+        private bool _isNavVisible = true;
+        public bool IsNavVisible
         {
-            get => _isHomeVisible;
+            get => _isNavVisible;
             set
             {
-                _isHomeVisible = value;
-                OnPropertyChanged(nameof(IsHomeVisible));
+                _isNavVisible = value;
+                OnPropertyChanged(nameof(IsNavVisible));
             }
         }
-
 
         public MainViewModel()
         {
@@ -45,38 +43,44 @@ namespace Projekt_wesele.ViewModels
             ShowGuestsCommand = new RelayCommand(ShowGuests);
             ShowTasksCommand = new RelayCommand(ShowTasks);
             ShowEventsCommand = new RelayCommand(ShowEvents);
+            ToggleNavCommand = new RelayCommand(ToggleNav); // Dodanie komendy
 
-            ShowHome();
+            ShowHome(); // Ustaw domyślny widok
         }
 
         private void ShowHome()
         {
             CurrentView = new HomeView(this);
-            IsHomeVisible = false;
+            IsNavVisible = true;
         }
 
         private void ShowBudget()
         {
             CurrentView = new BudgetView();
-            IsHomeVisible = true;
+            IsNavVisible = true;
         }
 
         private void ShowGuests()
         {
             CurrentView = new GuestsListView();
-            IsHomeVisible = true;
+            IsNavVisible = true;
         }
 
         private void ShowTasks()
         {
             CurrentView = new TasksListView();
-            IsHomeVisible = true;
+            IsNavVisible = true;
         }
 
         private void ShowEvents()
         {
             CurrentView = new EventListView();
-            IsHomeVisible = true;
+            IsNavVisible = true;
+        }
+
+        private void ToggleNav()
+        {
+            IsNavVisible = !IsNavVisible; // Zmiana widoczności panelu
         }
     }
 }

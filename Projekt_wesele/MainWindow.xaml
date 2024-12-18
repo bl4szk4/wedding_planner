@@ -6,14 +6,49 @@
         Background="#1E1E1E">
 
     <Grid>
-        <!-- Dynamicznie przełączany widok -->
-        <ContentControl Content="{Binding CurrentView}" Grid.Row="0" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <!-- Side bar -->
+            <ColumnDefinition Width="*" />
+            <!-- Main Content -->
+        </Grid.ColumnDefinitions>
 
-        <!-- Przycisk Home po lewej stronie -->
-        <Button Content="Home" Command="{Binding ShowHomeCommand}" 
-                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"
-                Visibility="{Binding IsHomeVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+        <!-- Side Bar -->
+        <Border Grid.Column="0" Background="#2D2D30" Padding="10" 
+                Visibility="{Binding IsNavVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <TextBlock Text="" Foreground="White" FontSize="18" FontWeight="Bold" Margin="0,0,0,20" />
+
+                <Button Content="Home" Command="{Binding ShowHomeCommand}" Margin="0,5" Padding="10,5"
+                        Background="#0288D1" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" />
+
+                <Button Content="Guests" Command="{Binding ShowGuestsCommand}" Margin="0,5" Padding="10,5"
+                        Background="#3C3C3C" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" />
+
+                <Button Content="Budget" Command="{Binding ShowBudgetCommand}" Margin="0,5" Padding="10,5"
+                        Background="#3C3C3C" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" />
+
+                <Button Content="Tasks" Command="{Binding ShowTasksCommand}" Margin="0,5" Padding="10,5"
+                        Background="#3C3C3C" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" />
+
+                <Button Content="Events" Command="{Binding ShowEventsCommand}" Margin="0,5" Padding="10,5"
+                        Background="#3C3C3C" Foreground="White" FontWeight="Bold" BorderBrush="Transparent" />
+            </StackPanel>
+        </Border>
+
+        <Button Content="☰"
+                Width="30" Height="30"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5"
                 Background="#0288D1" Foreground="White" FontWeight="Bold"
-                Padding="5" BorderBrush="{x:Null}" Panel.ZIndex="1" />
+                BorderBrush="#01579B" BorderThickness="2"
+                ToolTip="Toggle Navigaxtion"
+                Panel.ZIndex="1" Command="{Binding ToggleNavCommand}">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Color="#000000" />
+            </Button.Effect>
+        </Button>
+
+        <ContentControl Content="{Binding CurrentView}" Grid.Column="1" Margin="10" />
+
     </Grid>
 </Window>

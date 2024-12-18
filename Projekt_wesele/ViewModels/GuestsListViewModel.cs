@@ -21,6 +21,7 @@ public class GuestsListViewModel : ViewModelBase
     // Filtry
     public bool? FilterIsKid { get; set; }
     public bool? FilterHasPartner { get; set; }
+    public bool? FilterIsAttending {  get; set; }
     public GuestSide? FilterSide { get; set; }
     public ObservableCollection<GuestSide?> AvailableSides { get; set; }
 
@@ -106,7 +107,9 @@ public class GuestsListViewModel : ViewModelBase
             .Where(g =>
                 (!FilterIsKid.HasValue || g.IsKid == FilterIsKid.Value) &&
                 (!FilterHasPartner.HasValue || g.HasPartner == FilterHasPartner.Value) &&
-                (!FilterSide.HasValue || g.Side == FilterSide.Value))
+                (!FilterSide.HasValue || g.Side == FilterSide.Value) &&
+                (!FilterIsAttending.HasValue || g.Attending == FilterIsAttending.Value)
+                )
             .ToList();
 
         Guests.Clear();
@@ -116,18 +119,17 @@ public class GuestsListViewModel : ViewModelBase
         }
     }
 
-
-
-
     private void ClearFilters()
     {
         FilterIsKid = null;
         FilterHasPartner = null;
         FilterSide = null;
+        FilterIsAttending = null;
 
         OnPropertyChanged(nameof(FilterIsKid));
         OnPropertyChanged(nameof(FilterHasPartner));
         OnPropertyChanged(nameof(FilterSide));
+        OnPropertyChanged(nameof(FilterIsAttending));
 
         ApplyFilters();
     }

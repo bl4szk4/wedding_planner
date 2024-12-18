@@ -8,7 +8,12 @@ namespace Projekt_wesele
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(); // Powiązanie z MainViewModel
+            DataContext = new MainViewModel();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

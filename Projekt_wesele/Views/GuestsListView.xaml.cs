@@ -15,5 +15,9 @@ namespace Projekt_wesele.Views
             DataContext = _viewModel;
         }
 
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
