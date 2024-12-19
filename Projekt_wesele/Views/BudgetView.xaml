@@ -1,7 +1,164 @@
 ﻿<UserControl x:Class="Projekt_wesele.Views.BudgetView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <Grid>
-        <TextBlock Text="Budget View" HorizontalAlignment="Center" VerticalAlignment="Center" />
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:Projekt_wesele.Models"
+             xmlns:helpers="clr-namespace:Projekt_wesele.Helpers"
+
+             Background="Transparent">
+
+    <Grid Background="#1E1E1E" Margin="10">
+        <!-- Sections -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- Filter Section -->
+            <RowDefinition Height="*" />
+            <!-- DataGrid -->
+        </Grid.RowDefinitions>
+
+        <!-- Filters -->
+        <Border Grid.Row="0" Margin="0,0,0,10" Padding="10" Background="#2D2D30" CornerRadius="5">
+            <UniformGrid Rows="2" Columns="4" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <!-- Filter Is Essential -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Essential:" Foreground="White" Margin="0,0,5,0" />
+                    <CheckBox IsChecked="{Binding FilterIsEssential}" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <!-- Filter Is Payed -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Payed:" Foreground="White" Margin="0,0,5,0" />
+                    <CheckBox IsChecked="{Binding FilterIsPayed}" VerticalAlignment="Center" />
+                </StackPanel>
+
+                <!-- Filter Category -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Category:" Foreground="White" Margin="0,0,5,0" />
+                    <ComboBox ItemsSource="{Binding AvailableCategories}" 
+          SelectedItem="{Binding FilterCategory}"
+          Width="150"
+          Background="#2D2D30"
+          Foreground="White"
+          BorderBrush="#FF7043"
+          BorderThickness="2"
+          Padding="5"
+          VerticalContentAlignment="Center"
+          HorizontalContentAlignment="Left"
+          Margin="0,0,10,0">
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="ComboBoxItem">
+                                <Setter Property="Background" Value="#3C3C3C" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="FontSize" Value="14" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="#FF7043" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF7043" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
+
+                </StackPanel>
+
+                <!-- Filter Cost Range -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Cost:" Foreground="White" Margin="0,0,5,0" />
+                    <TextBox Text="{Binding MinCost}" Width="50" Margin="0,0,5,0" 
+                             Background="#2D2D30" Foreground="White" BorderBrush="#FF7043" />
+                    <TextBlock Text="-" Foreground="White" VerticalAlignment="Center" />
+                    <TextBox Text="{Binding MaxCost}" Width="50" Margin="5,0,0,0" 
+                             Background="#2D2D30" Foreground="White" BorderBrush="#FF7043" />
+                </StackPanel>
+
+                <!-- Buttons -->
+                <Button Content="Apply Filters" Command="{Binding ApplyFiltersCommand}" 
+                        Width="150" Height="30" Margin="5" 
+                        Background="#FF7043" Foreground="White" BorderBrush="Transparent" />
+                <Button Content="Clear Filters" Command="{Binding ClearFiltersCommand}" 
+                        Width="150" Height="30" Margin="5" 
+                        Background="#D32F2F" Foreground="White" BorderBrush="Transparent" />
+                <Button Content="Add Budget Item" Command="{Binding AddItemCommand}" 
+                        Width="150" Height="30" Margin="5" 
+                        Background="#4CAF50" Foreground="White" BorderBrush="Transparent" />
+            </UniformGrid>
+        </Border>
+
+        <!-- Budget Items List -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" 
+                  Margin="0,10,0,0"
+                  Background="#2D2D30" Foreground="#FFFFFF" 
+                  BorderBrush="#3C3C3C" GridLinesVisibility="Horizontal"
+                  RowBackground="#3C3C3C" AlternatingRowBackground="#2D2D30">
+            <DataGrid.Resources>
+                <!-- Cells style -->
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                    <Setter Property="Background" Value="#3C3C3C" />
+                    <Setter Property="BorderBrush" Value="#5A5A5A" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="Padding" Value="5,2" />
+                </Style>
+            </DataGrid.Resources>
+
+            <!-- Headers styles -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#FF7043" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="BorderBrush" Value="#FF7048" />
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Setter Property="Padding" Value="10,5" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <!-- Columns -->
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Width="20" Height="20"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ToolTip="Delete"
+                        Command="{Binding DataContext.DeleteItemCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                        CommandParameter="{Binding}">
+                                <Image Source="pack://application:,,,/Assets/trash.jpg" 
+                           Width="16" Height="16"
+                           Stretch="Uniform" />
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Name -->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*" />
+                <!-- Cost -->
+                <DataGridTextColumn Header="Cost" Binding="{Binding Cost}" Width="1*" />
+                <!-- Is Essential -->
+                <DataGridTemplateColumn Header="Essential" Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsEssential}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Is Payed -->
+                <DataGridTemplateColumn Header="Payed" Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsPayed}" HorizontalAlignment="Center" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Category -->
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="2*" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

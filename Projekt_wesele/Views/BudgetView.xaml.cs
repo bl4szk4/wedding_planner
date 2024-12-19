@@ -15,15 +15,19 @@ using Projekt_wesele.ViewModels;
 
 namespace Projekt_wesele.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy BudgetView.xaml
-    /// </summary>
     public partial class BudgetView : UserControl
     {
+        private readonly BudgetListViewModel _viewModel;
         public BudgetView()
         {
             InitializeComponent();
-            DataContext = new BudgetViewModel();
+            _viewModel = new BudgetListViewModel();
+            DataContext = _viewModel;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }   
 }

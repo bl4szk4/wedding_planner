@@ -80,7 +80,7 @@ namespace Projekt_wesele.ViewModels
 
         private void ToggleNav()
         {
-            IsNavVisible = !IsNavVisible; // Zmiana widoczności panelu
+            IsNavVisible = !IsNavVisible;
         }
     }
 }
