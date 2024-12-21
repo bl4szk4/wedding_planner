@@ -13,6 +13,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using Projekt_wesele.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Projekt_wesele.ViewModels.AddModels;
 
 public class BudgetListViewModel : ListViewModelBase<BudgetItem>
 {

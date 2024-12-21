@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Projekt_wesele.ViewModels
+namespace Projekt_wesele.ViewModels.AddModels
 {
     public class AddBudgetViewModel : DialogViewModelBase
     {

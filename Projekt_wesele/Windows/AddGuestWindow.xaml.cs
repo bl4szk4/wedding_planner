@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using Projekt_wesele.Models;
-using Projekt_wesele.ViewModels;
+using Projekt_wesele.ViewModels.AddModels;
 
 namespace Projekt_wesele.Views
 {

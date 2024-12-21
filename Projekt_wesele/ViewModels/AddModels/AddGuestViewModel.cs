@@ -2,7 +2,7 @@
 using Projekt_wesele.Models;
 using System.Windows.Input;
 
-namespace Projekt_wesele.ViewModels
+namespace Projekt_wesele.ViewModels.AddModels
 {
     public class AddGuestViewModel : DialogViewModelBase
     {

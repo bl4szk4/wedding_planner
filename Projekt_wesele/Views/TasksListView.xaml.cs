@@ -15,15 +15,22 @@ using Projekt_wesele.ViewModels;
 
 namespace Projekt_wesele.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy TasksListView.xaml
-    /// </summary>
+
     public partial class TasksListView : UserControl
+
     {
+        private readonly TasksListViewModel _viewModel;
+
         public TasksListView()
         {
             InitializeComponent();
-            DataContext = new TasksListViewModel();
+            _viewModel = new TasksListViewModel();
+            DataContext = _viewModel;
+
+        }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
