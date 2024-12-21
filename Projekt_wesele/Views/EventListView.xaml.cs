@@ -15,15 +15,22 @@ using Projekt_wesele.ViewModels;
 
 namespace Projekt_wesele.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy EventListView.xaml
-    /// </summary>
+
     public partial class EventListView : UserControl
+
     {
+        private readonly EventListViewModel _viewModel;
+
         public EventListView()
         {
             InitializeComponent();
-            DataContext = new EventListViewModel();
+            _viewModel = new EventListViewModel();
+            DataContext = _viewModel;
+
+        }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

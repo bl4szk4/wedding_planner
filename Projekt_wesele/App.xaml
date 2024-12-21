@@ -5,10 +5,10 @@
              xmlns:models="clr-namespace:Projekt_wesele.Models"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- Konwerter widoczności -->
+        <!-- Visibility Converted -->
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 
-        <!-- Konwerter dla checkmarków -->
+        <!-- Checkmark Converter -->
         <helpers:BoolToCheckmarkConverter x:Key="BoolToCheckmarkConverter" />
         <helpers:SideToColorConverter x:Key="SideToColorConverter" />
         <Style TargetType="CheckBox">
@@ -16,12 +16,12 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="5,2"/>
 
-            <!-- Customowy szablon -->
+            <!-- Custom template -->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
                         <Grid VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <!-- Tło dla CheckBox -->
+                            <!-- CheckBox background -->
                             <Border x:Name="CheckBoxBorder"
                                     Width="20" Height="20"
                                     Background="Transparent"
@@ -29,21 +29,19 @@
                                     BorderThickness="2"
                                     CornerRadius="3" />
 
-                            <!-- Treść CheckBox -->
+                            <!-- CheckBox content -->
                             <ContentPresenter VerticalAlignment="Center"
                                               Margin="25,0,0,0" />
                         </Grid>
                         <ControlTemplate.Triggers>
-                            <!-- Stan zaznaczony -->
+                            <!-- Marked -->
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="CheckBoxBorder" Property="Background" Value="#32CD32"/>
-                                <!-- Jasnozielony -->
                             </Trigger>
 
-                            <!-- Stan hover -->
+                            <!-- Hover -->
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="CheckBoxBorder" Property="Background" Value="#228B22"/>
-                                <!-- Ciemnozielony -->
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

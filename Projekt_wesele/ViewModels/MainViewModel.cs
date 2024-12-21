@@ -43,9 +43,9 @@ namespace Projekt_wesele.ViewModels
             ShowGuestsCommand = new RelayCommand(ShowGuests);
             ShowTasksCommand = new RelayCommand(ShowTasks);
             ShowEventsCommand = new RelayCommand(ShowEvents);
-            ToggleNavCommand = new RelayCommand(ToggleNav); // Dodanie komendy
+            ToggleNavCommand = new RelayCommand(ToggleNav);
 
-            ShowHome(); // Ustaw domyślny widok
+            ShowTasks();
         }
 
         private void ShowHome()
