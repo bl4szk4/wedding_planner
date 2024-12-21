@@ -14,6 +14,7 @@ using System.Windows.Input;
 using Projekt_wesele.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Projekt_wesele.ViewModels.AddModels;
+using System.Windows;
 
 public class BudgetListViewModel : ListViewModelBase<BudgetItem>
 {
@@ -22,10 +23,14 @@ public class BudgetListViewModel : ListViewModelBase<BudgetItem>
     public BudgetItemCategory? FilterCategory { get; set; }
     public decimal? MinCost {  get; set; }
     public decimal? MaxCost { get; set; }
-    public ObservableCollection<BudgetItemCategory?> AvailableCategories { get; set; }  
+    public ObservableCollection<BudgetItemCategory?> AvailableCategories { get; set; }
+    public ICommand GenerateBudgetRaportCommand { get; }
+
 
     public BudgetListViewModel() : base(new WeddingPlannerContext())
     {
+        GenerateBudgetRaportCommand = new RelayCommand(GenerateBudgetRaport);
+
         AvailableCategories = new ObservableCollection<BudgetItemCategory?> { 
             null,
             BudgetItemCategory.Services,
@@ -57,6 +62,13 @@ public class BudgetListViewModel : ListViewModelBase<BudgetItem>
         }
     }
 
+    public void GenerateBudgetRaport()
+    {
+        var totalCost = Items.Sum(item => item.Cost);
+
+        var customMessageBox = new BudgetMessageBox($"Total cost of filtered items: {totalCost:C}", Items);
+        customMessageBox.ShowDialog();
+    }
 
     public override void AddItem()
     {

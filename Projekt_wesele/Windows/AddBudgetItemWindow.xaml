@@ -53,7 +53,7 @@
             <TextBlock Text="Category:" Width="120" VerticalAlignment="Center"/>
             <ComboBox ItemsSource="{Binding AvailableCategories}" 
                       SelectedItem="{Binding Item.Category, Mode=TwoWay}" 
-                      Width="300" Background="#2D2D30" Foreground="White" BorderBrush="#007ACC" 
+                      Width="300" Background="#2D2D30" Foreground="Black" BorderBrush="#007ACC" 
                       Padding="5" MaxDropDownHeight="200">
                 <ComboBox.ItemContainerStyle>
                     <Style TargetType="ComboBoxItem">
@@ -63,11 +63,11 @@
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Background" Value="#FF7043" />
-                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Foreground" Value="#FF7043" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="Background" Value="#FF7043" />
-                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Foreground" Value="#FF7043" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>

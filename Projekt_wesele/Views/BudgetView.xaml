@@ -37,7 +37,7 @@
           SelectedItem="{Binding FilterCategory}"
           Width="150"
           Background="#2D2D30"
-          Foreground="White"
+          Foreground="Black"
           BorderBrush="#FF7043"
           BorderThickness="2"
           Padding="5"
@@ -85,6 +85,9 @@
                 <Button Content="Add Budget Item" Command="{Binding AddItemCommand}" 
                         Width="150" Height="30" Margin="5" 
                         Background="#4CAF50" Foreground="White" BorderBrush="Transparent" />
+                <Button Content="Generate Budget Raport" Command="{Binding GenerateBudgetRaportCommand}" 
+                        Width="150" Height="30" Margin="5" 
+                        Background="#FF7043" Foreground="White" BorderBrush="Transparent" />
             </UniformGrid>
         </Border>
 

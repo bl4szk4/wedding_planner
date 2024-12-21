@@ -47,7 +47,7 @@
                     <ComboBox Width="120"
               ItemsSource="{Binding AvailableSides}"
               SelectedItem="{Binding FilterSide}"
-              Foreground="White"
+              Foreground="Black"
               Background="#2D2D30"
               BorderBrush="#FF7043"
               BorderThickness="2"

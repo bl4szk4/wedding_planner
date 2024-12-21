@@ -38,7 +38,6 @@ namespace Projekt_wesele.ViewModels
         protected virtual void LoadItems()
         {
             var itemsFromDb = _context.Set<T>().ToList();
-            Debug.WriteLine($"Loaded {itemsFromDb.Count} items from database."); // Logowanie liczby elementów
 
             Items = new ObservableCollection<T>(itemsFromDb);
 
