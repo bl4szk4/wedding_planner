@@ -23,6 +23,11 @@ namespace Projekt_wesele.ViewModels.AddModels
                 MessageBox.Show("Name is required. Please fill in the Name field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+            if (string.IsNullOrWhiteSpace(Item.Description))
+            {
+                MessageBox.Show("Description is required. Please fill in the Description field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             base.Save();
         }

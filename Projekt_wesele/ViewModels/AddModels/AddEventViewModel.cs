@@ -26,6 +26,11 @@ public class AddEventViewModel : DialogViewModelBase
             MessageBox.Show("End Time must be later than Start Time.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
+        if (string.IsNullOrWhiteSpace(Item.Location))
+        {
+            MessageBox.Show("Location is required. Please fill in the Location field", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
 
         base.Save();
     }

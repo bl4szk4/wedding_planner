@@ -1,5 +1,6 @@
 ﻿using Projekt_wesele.Helpers;
 using Projekt_wesele.Models;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekt_wesele.ViewModels.AddModels
@@ -53,7 +54,12 @@ namespace Projekt_wesele.ViewModels.AddModels
 
         protected override void Save()
         {
-            // Logika walidacji przed zapisem (jeśli potrzebna)
+
+            if (string.IsNullOrWhiteSpace(Guest.Name))
+            {
+                MessageBox.Show("Name is required. Please fill in the Name field.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             base.Save();
         }
     }

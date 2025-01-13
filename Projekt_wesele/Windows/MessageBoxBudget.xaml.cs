@@ -5,6 +5,7 @@ using iText.Layout.Properties;
 using System.Linq;
 using System.Windows;
 using Projekt_wesele.Models;
+using System.IO;
 
 namespace Projekt_wesele.Views
 {
@@ -32,7 +33,9 @@ namespace Projekt_wesele.Views
 
         private void SaveBudgetReportToPdf()
         {
-            string filePath = "BudgetReport.pdf";
+            string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "BudgetReport.pdf");
 
             try
             {

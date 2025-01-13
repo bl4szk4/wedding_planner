@@ -1,4 +1,5 @@
-﻿using Projekt_wesele.ViewModels;
+﻿using Projekt_wesele.Data;
+using Projekt_wesele.ViewModels;
 using System.Windows;
 
 namespace Projekt_wesele
@@ -8,6 +9,13 @@ namespace Projekt_wesele
         public MainWindow()
         {
             InitializeComponent();
+
+            using (var context = new WeddingPlannerContext())
+            {
+                context.EnsureDatabaseCreated();
+
+            }
+
             DataContext = new MainViewModel();
         }
 

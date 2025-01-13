@@ -17,14 +17,7 @@ namespace Projekt_wesele.Data
         public DbSet<TaskItem> Tasks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var logFilePath = @"D:\Studia\Informatyka\C#\Projekt_wesele\Projekt_wesele\Projekt_wesele\weddingPlanner.log";
-
-            //var fileLogger = new StreamWriter(logFilePath, append: true)
-            //{
-            //    AutoFlush = true
-            //};
             optionsBuilder.UseSqlite(@"Data Source=D:\Studia\Informatyka\C#\Projekt_wesele\Projekt_wesele\Projekt_wesele\weddingPlanner.db");
-                    //.LogTo(fileLogger.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -39,6 +32,12 @@ namespace Projekt_wesele.Data
                 .HasConversion<int>();
 
         }
+        public void EnsureDatabaseCreated()
+        {
+            Database.EnsureCreated();
+            Database.Migrate();
+        }
+
 
     }
 
