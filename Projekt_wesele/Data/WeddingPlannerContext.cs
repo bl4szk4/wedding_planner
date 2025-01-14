@@ -17,7 +17,9 @@ namespace Projekt_wesele.Data
         public DbSet<TaskItem> Tasks { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=D:\Studia\Informatyka\C#\Projekt_wesele\Projekt_wesele\Projekt_wesele\weddingPlanner.db");
+            var relativePath = @"weddingPlanner.db";
+            var absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+            optionsBuilder.UseSqlite($"Data Source={absolutePath}");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +37,14 @@ namespace Projekt_wesele.Data
         public void EnsureDatabaseCreated()
         {
             Database.EnsureCreated();
-            Database.Migrate();
+            try
+            {
+                Database.Migrate();
+            }
+            catch (Exception ex)
+            {
+            }
+
         }
 
 
